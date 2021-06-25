@@ -4,6 +4,7 @@
 """
 import cmd
 
+
 class HBNBCommand(cmd.Cmd):
     """
         class HBNBCommand
@@ -23,10 +24,10 @@ class HBNBCommand(cmd.Cmd):
 
     def emptyline(self):
         """
-            Called when an empty line is entered 
+            Called when an empty line is entered
             in response to the prompt.
 
-            If this method is not overridden, 
+            If this method is not overridden,
             it repeats the last nonempty
             command entered.
         """
