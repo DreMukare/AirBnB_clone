@@ -5,6 +5,7 @@
 import json
 import os
 
+
 class FileStorage:
     """
         class FileStorage
@@ -34,8 +35,8 @@ class FileStorage:
         """
             serializes __objects to the JSON file
         """
-            with open(FileStorage.__file_path, 'w') as f:
-                json.dump(FileStorage.__objects, f)
+        with open(FileStorage.__file_path, 'w') as f:
+            json.dump(FileStorage.__objects, f)
 
     def reload(self):
         """
