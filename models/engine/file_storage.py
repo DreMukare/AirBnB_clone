@@ -42,7 +42,7 @@ class FileStorage:
             deserializes the JSON file to __objects
         """
         if os.path.exists(FileStorage.__file_path):
-            with open(self.__file_path, 'r') as f:
-                self.__objects = json.load(f)
+            with open(FileStorage.__file_path, 'r') as f:
+                FileStorage.__objects = json.load(f)
         else:
             pass
