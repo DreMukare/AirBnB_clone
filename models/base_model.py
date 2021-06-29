@@ -33,7 +33,7 @@ class BaseModel:
                 self.id = str(uuid4())
                 self.created_at = datetime\
                     .now().strftime('%Y-%m-%dT%H:%M:%S.%f')
-                storage.new()
+                storage.new(self)
 
     def __str__(self):
         """
