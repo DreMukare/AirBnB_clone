@@ -63,3 +63,4 @@ There are the wonderful humans that contributed to this repository:
 
 - Andrew Mukare <[judgefudge19](https://github.com/judgefudge19)>
 - Millicent Malinga <[MillicentMal](https://github.com/MillicentMal)>
+- Joan Mbarire <[Joan61](https://github.com/Joan61)>
