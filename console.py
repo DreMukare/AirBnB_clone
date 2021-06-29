@@ -32,7 +32,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, input):
         """
-				    prints string representation of an instance
+            prints string representation of an instance
         """
         vars = input.split(' ')
         if not input:
@@ -95,7 +95,7 @@ class HBNBCommand(cmd.Cmd):
         vars[3] = vars[3].strip("\"")
         storage.all()[key].__dict__[vars[2]] = vars[3]
         vars[0].save()
-        storage.save()		
+        storage.save()
 
     def help_quit(self):
         """
