@@ -55,7 +55,8 @@ class FileStorage:
             serializes __objects to the JSON file
         """
         with open(FileStorage.__file_path, 'w+') as f:
-            json.dump({k: v.to_dict() for k, v in FileStorage.__objects.items()}, f)
+            json.dump({k: v.to_dict()
+                       for k, v in FileStorage.__objects.items()}, f)
 
     def reload(self):
         """
