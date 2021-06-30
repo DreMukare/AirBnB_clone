@@ -3,7 +3,7 @@
     module: FileStorage
 """
 import json
-import os.path
+import os
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -63,10 +63,12 @@ class FileStorage:
         """
         if os.path.isfile(self.__file_path):
             with open(self.__file_path, 'r') as f:
-                obj_dicts = json.load(json_file)
+                obj_dicts = json.load(f)
 
             my_objs = {}
             for k, v in obj_dicts.items():
                 class_name = v['__class__']
                 my_objs[k] = eval(class_name)(**v)
             self.__objects.update(my_objs)
+
+
