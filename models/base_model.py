@@ -32,10 +32,8 @@ class BaseModel:
                         .strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
         else:
             self.id = str(uuid4())
-            self.created_at = datetime\
-                .now().strftime('%Y-%m-%dT%H:%M:%S.%f')
-            self.updated_at = datetime\
-                .now().strftime('%Y-%m-%dT%H:%M:%S.%f')
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
             storage.new(self)
 
     def __str__(self):
@@ -51,8 +49,7 @@ class BaseModel:
             updated_at with the current datetime
         """
         storage.save()
-        self.updated_at = datetime\
-            .now().strftime('%Y-%m-%dT%H:%M:%S.%f')
+        self.updated_at = datetime.now()
 
     def to_dict(self):
         """
@@ -60,7 +57,7 @@ class BaseModel:
             keys/values of __dict__ of the instance
         """
         dict = self.__dict__.copy()
-        dict['created_at'] = self.created_at
-        dict['updated_at'] = self.updated_at
+        dict['created_at'] = self.created_at.isoformat()
+        dict['updated_at'] = self.updated_at.isoformat()
         dict['__class__'] = self.__class__.__name__
         return dict
