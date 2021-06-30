@@ -39,7 +39,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         if vars[0] not in storage.classes():
             print("** class doesn't exist **")
-        if not vars[1] or len(vars) < 2:
+        if len(vars) < 2:
             print("** instance id missing **")
         key = '{}.{}'.format(vars[0], vars[1])
         if key in storage.all():
@@ -56,7 +56,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         if vars[0] not in storage.classes():
             print("** class doesn't exist **")
-        if not vars[1] or len(vars) < 2:
+        if len(vars) < 2:
             print("** instance id missing **")
         key = '{}.{}'.format(vars[0], vars[1])
         if key in storage.all():
@@ -83,7 +83,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         if vars[0] not in storage.classes():
             print("** class doesn't exist **")
-        if not vars[1] or len(vars) < 2:
+        if len(vars) < 2:
             print("** instance id missing **")
         key = '{}.{}'.format(vars[0], vars[1])
         if key not in storage.all():
