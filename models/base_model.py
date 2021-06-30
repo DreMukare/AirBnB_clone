@@ -46,8 +46,8 @@ class BaseModel:
             updates the public instance attribute
             updated_at with the current datetime
         """
-        storage.save()
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """
