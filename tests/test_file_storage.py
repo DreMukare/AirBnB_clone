@@ -9,7 +9,7 @@ class TestFileStorage(unittest.TestCase):
         if os.path.isfile('file.json'):
             os.rename('file.json', 'tmpfile.json')
         self.storage1 = FileStorage()
-        self.model = BaseModel()
+        self.model1 = BaseModel()
 
     def tearDown(self):
         if os.path.isfile('file.json'):
@@ -20,8 +20,8 @@ class TestFileStorage(unittest.TestCase):
         del self.model1
 
     def test_atrributes(self):
-        self.assertTrue(hasattr(BaseModel, self.model1.created_art))
-        self.assertEqual(self.storage1._FileStorage__file__path, 'file.json')
+        self.assertTrue(hasattr(self.model1, 'created_at'))
+        self.assertEqual(self.storage1._FileStorage__file_path, 'file.json')
         self.assertIsInstance(self.storage1._FileStorage__objects, dict)
 
     def test_all(self):
@@ -40,3 +40,6 @@ class TestFileStorage(unittest.TestCase):
         del self.storage1._FileStorage__objects[tmp_id]
         self.storage1.reload()
         self.assertIn(tmp_id, self.storage1.all())
+
+if __name__ == '__main__':
+    unittest.main()

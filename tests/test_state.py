@@ -18,7 +18,7 @@ class TestState(unittest.TestCase):
 
     def test_attributes(self):
         """ checks type and presence of attributes """
-        self.assertTrue(hasattr(self.state.name, self.state))]
+        self.assertTrue(hasattr(self.state, 'name'))
 
     def test_type_of_attributes(self):
         """ checks that attributes are the right type """

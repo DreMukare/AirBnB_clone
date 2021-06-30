@@ -18,7 +18,7 @@ class TestAmenity(unittest.TestCase):
 
     def test_attributes(self):
         """ checks type and presence of attributes """
-        self.assertTrue(hasattr(self.amenity.name, self.amenity))
+        self.assertTrue(hasattr(self.amenity, 'name'))
 
     def test_type_of_attributes(self):
         """ checks that attributes are the right type"""

@@ -18,9 +18,9 @@ class TestReview(unittest.TestCase):
 
     def test_attributes(self):
         """ checks type and presence of attributes """
-        self.assertTrue(hasattr(self.review.text, self.review))
-        self.assertTrue(hasattr(self.review.place_id, self.review))
-        self.assertTrue(hasattr(self.review.user_id, self.review))
+        self.assertTrue(hasattr(self.review, 'text'))
+        self.assertTrue(hasattr(self.review, 'place_id'))
+        self.assertTrue(hasattr(self.review, 'user_id'))
 
     def test_type_of_attributes(self):
         """ checks that attributes are the right type """

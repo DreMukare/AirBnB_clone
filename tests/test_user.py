@@ -18,10 +18,10 @@ class TestUser(unittest.TestCase):
 
     def test_attributes(self):
         """ checks type and presence of attributes """
-        self.assertTrue(hasattr(self.user.email, self.user))
-        self.assertTrue(hasattr(self.user.first_name, self.user))
-        self.assertTrue(hasattr(self.user.last_name, self.user))
-        self.assertTrue(hasattr(self.user.password, self.user))
+        self.assertTrue(hasattr(self.user, 'email'))
+        self.assertTrue(hasattr(self.user, 'first_name'))
+        self.assertTrue(hasattr(self.user, 'last_name'))
+        self.assertTrue(hasattr(self.user, 'password'))
 
     def test_type_of_attributes(self):
         """ checks that attributes are the right type """

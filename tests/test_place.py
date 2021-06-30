@@ -18,17 +18,17 @@ class TestPlace(unittest.TestCase):
 
     def test_attributes(self):
         """ checks type and presence of attributes """
-        self.assertTrue(hasattr(self.place.name, self.place))
-        self.assertTrue(hasattr(self.place.city_id, self.place))
-        self.assertTrue(hasattr(self.place.user_id, self.place))
-        self.assertTrue(hasattr(self.place.description, self.place))
-        self.assertTrue(hasattr(self.place.number_rooms, self.place))
-        self.assertTrue(hasattr(self.place.number_bathrooms, self.place))
-        self.assertTrue(hasattr(self.place.max_guest, self.place))
-        self.assertTrue(hasattr(self.place.price_by_night, self.place))
-        self.assertTrue(hasattr(self.place.latitude, self.place))
-        self.assertTrue(hasattr(self.place.longitude, self.place))
-        self.assertTrue(hasattr(self.place.amenity_ids, self.place))
+        self.assertTrue(hasattr(self.place, 'name'))
+        self.assertTrue(hasattr(self.place, 'city_id'))
+        self.assertTrue(hasattr(self.place, 'user_id'))
+        self.assertTrue(hasattr(self.place, 'description'))
+        self.assertTrue(hasattr(self.place, 'number_rooms'))
+        self.assertTrue(hasattr(self.place, 'number_bathrooms'))
+        self.assertTrue(hasattr(self.place, 'max_guest'))
+        self.assertTrue(hasattr(self.place, 'price_by_night'))
+        self.assertTrue(hasattr(self.place, 'latitude'))
+        self.assertTrue(hasattr(self.place, 'longitude'))
+        self.assertTrue(hasattr(self.place, 'amenity_ids'))
 
     def test_type_of_attributes(self):
         """ checks that attributes are the right type """
