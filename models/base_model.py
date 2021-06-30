@@ -27,7 +27,7 @@ class BaseModel:
                 strptime(kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
             for k, v in kwargs.items():
                 if k not in ['updated_at', 'created_at', '__class__']:
-                    self.__setattr__(key, value)
+                    self.__setattr__(k, v)
         else:
             self.id = str(uuid4())
             self.created_at = datetime.now()
