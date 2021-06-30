@@ -21,15 +21,13 @@ class BaseModel:
                 created_at(datetime): time at which instance was created
         """
         if kwargs:
-            for key, value in kwargs.items():
-                if key == 'id':
-                    self.id = value
-                elif key == 'created_at':
-                    self.created_at = datetime\
-                        .strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
-                elif key == "updated_at":
-                    self.updated_at = datetime\
-                        .strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
+            self.updated_at = datetime.\
+                strptime(kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
+            self.created_at = datetime.\
+                strptime(kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
+            for k, v in kwargs.items():
+                if k not in ['updated_at', 'created_at', '__class__']:
+                    self.__setattr__(key, value)
         else:
             self.id = str(uuid4())
             self.created_at = datetime.now()
