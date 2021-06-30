@@ -3,6 +3,14 @@
     module: FileStorage
 """
 import json
+import os.path
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class FileStorage:
@@ -19,28 +27,17 @@ class FileStorage:
         """
             returns __objects
         """
-        return FileStorage.__objects
+        return self.__objects
 
     def new(self, obj):
         """
             sets in __objects the obj with key <obj class name>.id
         """
-        if obj == {} or obj is None:
-            return
-        # key = obj.__class__.__name__ + "." + obj["id"]
-        key = obj.__class__.__name__ + '.' + str(obj)
-        FileStorage.__objects[key] = obj
+        key = obj.__class__.__name__ + '.' + obj.id
+        self.__objects[key] = obj
 
     def classes(self):
         """ Returns a dict of all valid classes """
-        from models.base_model import BaseModel
-        from models.state import State
-        from models.city import City
-        from models.place import Place
-        from models.review import Review
-        from models.amenity import Amenity
-        from models.user import User
-
         classes = {"BaseModel": BaseModel,
                    "State": State,
                    "City": City,
@@ -54,19 +51,22 @@ class FileStorage:
         """
             serializes __objects to the JSON file
         """
-        with open(FileStorage.__file_path, 'w+') as f:
-            json.dump({k: v.to_dict()
-                       for k, v in FileStorage.__objects.items()}, f)
+        obj_dicts = {}
+        for k, v in self.__objects.items():
+            obj_dicts[k] = v.to_dict()
+        with open(self.__file_path, 'w+') as f:
+            json.dump(obj_dicts, f)
 
     def reload(self):
         """
             deserializes the JSON file to __objects
         """
-        try:
-            with open(FileStorage.__file_path, 'r') as f:
-                temp_dict = json.loads(FileStorage.__objects, f)
-                for v in temp_dict.values():
-                    cls = v['__class__']
-                    self.new(eval(cls)(**v))
-        except Exception:
-            pass
+        if os.path.isfile(self.__file_path):
+            with open(self.__file_path, 'r') as f:
+                obj_dicts = json.load(json_file)
+
+            my_objs = {}
+            for k, v in obj_dicts.items():
+                class_name = v['__class__']
+                my_objs[k] = eval(class_name)(**v)
+            self.__objects.update(my_objs)
