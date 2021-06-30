@@ -3,6 +3,7 @@
     contains entry point of command interpreter
 """
 import cmd
+import sys
 from models import storage
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
