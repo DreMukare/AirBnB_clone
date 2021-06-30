@@ -42,9 +42,9 @@ class TestBaseModelMethods(unittest.TestCase):
 
     def test_str_representation(self):
         """Test the format of the return value of the __str__ method"""
-        msg = "[{}] ({}) {}".format(type(self.base_1).__name__, self.base_1.id,
+        msg = "[{}] ({}) {}".format(self.base_1.__class__.__name__, self.base_1.id,
                                     self.base_1.__dict__)
-        self.assertEqual(str(self.base_1), msg)
+        self.assertEqual(self.base_1.__str__(), msg)
 
     def test_to_dict(self):
         """Test the return value of the to_dict() method"""
