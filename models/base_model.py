@@ -30,10 +30,13 @@ class BaseModel:
                 elif key == "updated_at":
                     self.updated_at = datetime\
                         .strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
-                self.id = str(uuid4())
-                self.created_at = datetime\
-                    .now().strftime('%Y-%m-%dT%H:%M:%S.%f')
-                storage.new(self)
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime\
+                .now().strftime('%Y-%m-%dT%H:%M:%S.%f')
+            self.updated_at = datetime\
+                .now().strftime('%Y-%m-%dT%H:%M:%S.%f')
+            storage.new(self)
 
     def __str__(self):
         """
