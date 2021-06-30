@@ -91,29 +91,35 @@ class HBNBCommand(cmd.Cmd):
             output = [str(obj) for k, obj in storage.all().items()]
             print(output)
 
-    def do_update(self, input):
+
+    def do_update(self, line):
         """
-            updates instance based on class name and id
+        Updates an instance based on the class name and id by adding or
+        updating attribute (save the change into the JSON file). Ex: (hbnb)
+        update BaseModel 1234-1234-1234 email "aibnb@holbertonschool.com".
         """
-        vars = input.split(' ')
-        if not input:
+        a_list = line.split(" ")
+        if len(line) == 0:
             print("** class name missing **")
-        elif vars[0] not in storage.classes:
+            return
+        elif a_list[0] not in HBNBCommand.all_classes.keys():
             print("** class doesn't exist **")
-        elif len(vars) < 2:
+            return
+        elif len(a_list) == 1:
             print("** instance id missing **")
+            return
+        elif len(a_list) == 2:
+            print("** attribute name missing **")
+        elif len(a_list) == 3:
+            print("** value missing **")
         else:
-            key = '{}.{}'.format(vars[0], vars[1])
-            if key not in storage.all():
+            ke_y = a_list[0] + "." + a_list[1]
+            all_instances = storage.all()
+            if ke_y not in all_instances.keys():
                 print("** no instance found **")
-            if len(vars) < 3:
-                print('** attribute name missing **')
-            if len(vars) < 4:
-                print('** value missing **')
             else:
-                vars[3] = vars[3].strip("\"")
-                storage.all()[key].__dict__[vars[2]] = vars[3]
-                vars[0].save()
+                obj = all_instances[ke_y]
+                setattr(obj, a_list[2], a_list[3])
                 storage.save()
 
     def help_quit(self):
