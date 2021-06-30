@@ -29,67 +29,91 @@ class HBNBCommand(cmd.Cmd):
         cmd.Cmd.__init__(self)
         self.prompt = '(hbnb) '
 
-    def do_create(self, name):
+
+    def do_create(self, line):
+        """Creates a new BaseModel instance
+        Args:
+            None
+        Prints id of the new BaseModel instance
         """
-            Creates a new instance of BaseModel,
-            saves it (to the JSON file) and prints the id
-        """
-        if not name:
+        if len(line) == 0:
             print("** class name missing **")
-        if name not in storage.classes:
+        elif line not in HBNBCommand.all_classes.keys():
             print("** class doesn't exist **")
         else:
-            instance = storage.classes[name]()
-            instance.save()
-            print(instance.id)
+            base1 = HBNBCommand.all_classes[line]()
+            base1.save()
+            print(base1.id)
 
-    def do_show(self, input):
+    def do_show(self, line):
         """
-            prints string representation of an instance
+        Prints the string representation of an instance based on the class name
+        and id. Example: $ show BaseModel 1234-1234-1234.
         """
-        vars = input.split(' ')
-        if not input:
+        a_list = line.split(" ")
+        if len(line) == 0:
             print("** class name missing **")
             return
-        elif vars[0] not in storage.classes:
+        elif a_list[0] not in HBNBCommand.all_classes.keys():
             print("** class doesn't exist **")
-        elif len(vars) < 2:
+            return
+        elif len(a_list) == 1:
             print("** instance id missing **")
+            return
         else:
-            key = '{}.{}'.format(vars[0], vars[1])
-            if key not in storage.all():
-                print('** no instance found **')
-            else:
-                print(storage.all()[key])
-
-    def do_destroy(self, input):
-        """
-            Deletes an instance
-        """
-        vars = input.split(' ')
-        if not input:
-            print("** class name missing **")
-        elif vars[0] not in storage.classes:
-            print("** class doesn't exist **")
-        elif len(vars) < 2:
-            print("** instance id missing **")
-        else:
-            key = '{}.{}'.format(vars[0], vars[1])
-            if key in storage.all():
-                del storage.all()[key]
-                storage.save()
-            else:
+            ke_y = a_list[0] + "." + a_list[1]
+            all_instances = storage.all()
+            if ke_y not in all_instances.keys():
                 print("** no instance found **")
+            else:
+                obj = all_instances[ke_y]
+                print(obj)
 
-    def do_all(self, input):
+    def do_destroy(self, line):
         """
-            prints string representations of all instances
+        Deletes an instance based on the class name
+        and id. Example: (hbnb)  destroy BaseModel 1234-1234-1234.
         """
-        if input not in storage.classes:
-            print('** class does not exist **')
+        a_list = line.split(" ")
+        if len(line) == 0:
+            print("** class name missing **")
+            return
+        elif a_list[0] not in HBNBCommand.all_classes.keys():
+            print("** class doesn't exist **")
+            return
+        elif len(a_list) == 1:
+            print("** instance id missing **")
+            return
         else:
-            output = [str(obj) for k, obj in storage.all().items()]
-            print(output)
+            ke_y = a_list[0] + "." + a_list[1]
+            all_instances = storage.all()
+            if ke_y not in all_instances.keys():
+                print("** no instance found **")
+            else:
+                del(all_instances[ke_y])
+                storage.save()
+
+    def do_all(self, line):
+        """
+        Prints the string representation of all instances
+        Example: (hbnb) all BaseModel
+        or (hbnb) all
+        """
+        obj_list = []
+        all_list = []
+        all_instances = storage.all()
+        if line == "":
+            for k, obj in all_instances.items():
+                all_list.append(str(obj))
+            print(all_list)
+        elif line in HBNBCommand.all_classes.keys():
+            for k, v in all_instances.items():
+                if line == v.__class__.__name__:
+                    ke_y = line + "." + str(v.id)
+                    obj_list.append(all_instances[ke_y])
+            print(obj_list)
+        else:
+            print("** class doesn't exist **")
 
 
     def do_update(self, line):
