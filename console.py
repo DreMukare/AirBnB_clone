@@ -4,18 +4,30 @@
 """
 import cmd
 from models import storage
-
+from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
+from models import storage
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
+from models.user import User
 
 class HBNBCommand(cmd.Cmd):
     """
         class HBNBCommand
     """
+    all_classes = {'BaseModel': BaseModel, 'User': User, 'State': State,
+                   'City': City, 'Amenity': Amenity, 'Place': Place,
+                   'Review': Review}
+
     def __init__(self):
         """
             prompts user
         """
         cmd.Cmd.__init__(self)
-        self.prompt = '(hnbn)'
+        self.prompt = '(hbnb) '
 
     def do_create(self, name):
         """
@@ -130,6 +142,7 @@ class HBNBCommand(cmd.Cmd):
         """
             handles EOF
         """
+        print()
         return True
 
 if __name__ == '__main__':
