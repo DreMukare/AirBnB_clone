@@ -40,11 +40,17 @@ class TestBaseModelMethods(unittest.TestCase):
         self.assertEqual(Test_Base.updated_at.isoformat(),
                          kwargs['updated_at'])
 
-    def test_str_representation(self):
-        """Test the format of the return value of the __str__ method"""
-        msg = "[{}] ({}) {}".format(self.base_1.__class__.__name__, self.base_1.id,
-                                    self.base_1.__dict__)
-        self.assertEqual(self.base_1.__str__(), msg)
+    def test_str(self):
+        """
+        Tests method __str__ used in base_model
+        """
+        base2 = BaseModel()
+        self.assertIn("id", base2.__str__())
+        self.assertIn("created_at", base2.__str__())
+        self.assertIn("updated_at", base2.__str__())
+        self.assertIn("[BaseModel]", base2.__str__())
+        self.assertTrue(type(base2.__str__()), str)
+        self.assertIsNotNone(base2.__str__())
 
     def test_to_dict(self):
         """Test the return value of the to_dict() method"""
