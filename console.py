@@ -15,6 +15,7 @@ from models.amenity import Amenity
 from models.review import Review
 from models.user import User
 
+
 class HBNBCommand(cmd.Cmd):
     """
         class HBNBCommand
@@ -29,7 +30,6 @@ class HBNBCommand(cmd.Cmd):
         """
         cmd.Cmd.__init__(self)
         self.prompt = '(hbnb) '
-
 
     def do_create(self, line):
         """Creates a new BaseModel instance
