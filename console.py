@@ -166,13 +166,12 @@ class HBNBCommand(cmd.Cmd):
         """
             quits the cli
         """
-        raise SystemExit
+        raise SystemExit(0)
 
     def do_EOF(self, arg):
         """
             handles EOF
         """
-        print()
         return True
 
 if __name__ == '__main__':
