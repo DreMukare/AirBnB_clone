@@ -101,7 +101,7 @@ class HBNBCommand(cmd.Cmd):
         or (hbnb) all
         """
         obj_list = []
-        storage.reload()
+#        storage.reload()
         objs = storage.all()
         try:
             if len(line) != 0:
