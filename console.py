@@ -1,10 +1,12 @@
 #!/usr/bin/python3
 """
-    contains entry point of command interpreter
+module console
+contains the entry point to the command interpreter
 """
+
+
 import cmd
 import sys
-from models import storage
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 from models import storage
@@ -17,19 +19,29 @@ from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
-    """
-        class HBNBCommand
-    """
+    """ command line interpreter"""
+    prompt = "(hbnb) "
     all_classes = {'BaseModel': BaseModel, 'User': User, 'State': State,
                    'City': City, 'Amenity': Amenity, 'Place': Place,
                    'Review': Review}
 
-    def __init__(self):
+    def do_EOF(self, line):
+        """ Interprets Ctrl + D
         """
-            prompts user
+        print()
+        return True
+
+    def do_quit(self, line):
+        """ Quit command to exit the program
         """
-        cmd.Cmd.__init__(self)
-        self.prompt = '(hbnb) '
+        raise SystemExit
+
+    def emptyline(self):
+        """Called when an empty line is entered in response to the prompt.
+        It ignores the last nonempty
+        command entered and does nothing
+        """
+        pass
 
     def do_create(self, line):
         """Creates a new BaseModel instance
@@ -146,34 +158,80 @@ class HBNBCommand(cmd.Cmd):
                 setattr(obj, a_list[2], a_list[3])
                 storage.save()
 
-    def help_quit(self):
+    def default(self, line):
+        """Called on an input line when the command prefix is not recognized.
+        If this method is not overridden, it prints an error message and
+        returns.
         """
-            handling help command
-        """
-        print('Quit command to exit the program')
+        if len(line) == 0:
+            return
+        else:
+            args = line.split('.')
+            class_arg = args[0]
+            if class_arg in HBNBCommand.all_classes:
+                if len(args) == 2:
+                    if args[1] == "all()":
+                        HBNBCommand.do_all(self, class_arg)
+                    elif args[1] == "count()":
+                        print((HBNBCommand.instance_count(self, class_arg)))
+                    elif str(args[1])[:4] == "show":
+                        string = args[1]
+                        c_id = string[6:-2]
+                        l_ine = str(class_arg) + " " + str(c_id)
+                        HBNBCommand.do_show(self, l_ine)
+                    elif str(args[1])[:7] == "destroy":
+                        string = args[1]
+                        c_id = string[9:-2]
+                        l_ine = str(class_arg) + " " + str(c_id)
+                        HBNBCommand.do_destroy(self, l_ine)
+                    elif str(args[1])[:6] == "update":
+                        a_slc = args[1][7:-1]
+                        my_list = a_slc.split(", ")
+                        _id = my_list[0][1:-1]
+                        if type(my_list[1]) == dict:
+                            for att, val in my_list[1].items():
+                                l = class_arg + " " + _id + " " + att + val
+                                HBNBCommand.do_update(self, l)
+                        else:
+                            if my_list[2][0] == '"' and my_list[2][-1] == '"':
+                                val = my_list[2][1:-1]
+                            else:
+                                val = my_list[2]
+                            if my_list[1][0] == '"' and my_list[1][-1] == '"':
+                                attr = my_list[1][1:-1]
+                            else:
+                                attr = my_list[1]
+                            l = str(class_arg + " " + _id + " " + attr +
+                                    " " + val)
+                            HBNBCommand.do_update(self, l)
+                    else:
+                        pass
+                else:
+                    print("Try: {}.all() or all {}".format(args[0], args[0]))
+            else:
+                print("*** Unknown syntax: {}".format(line))
+                return
 
-    def emptyline(self):
-        """
-            Called when an empty line is entered
-            in response to the prompt.
-            If this method is not overridden,
-            it repeats the last nonempty
-            command entered.
-        """
-        pass
-
-    def do_quit(self, arg):
-        """
-            quits the cli
-        """
-        raise SystemExit
-
-    def do_EOF(self, arg):
-        """
-            handles EOF
-        """
-        print()
-        return True
+    def instance_count(self, line):
+     """
+        Returns a list containing string representation of instances
+     """
+        count = 0
+        obj_list = []
+        all_list = []
+        all_instances = storage.all()
+        if line == "":
+            for k, obj in all_instances.items():
+                all_list.append(str(obj))
+                count = count + 1
+            return(count)
+        elif line in HBNBCommand.all_classes.keys():
+            for k, v in all_instances.items():
+                if line == v.__class__.__name__:
+                    ke_y = line + "." + str(v.id)
+                    obj_list.append(all_instances[ke_y])
+                    count = count + 1
+            return(count)
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
