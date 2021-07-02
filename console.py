@@ -213,7 +213,7 @@ class HBNBCommand(cmd.Cmd):
                         print(obj[key])
                     elif id_sect[0] == 'destroy':
                         del obj[key]
-                else:
+                elif len(act_id) > 36 and id_sect[0] == 'update':
                     more_args = act_id.split(', ')
                     id_str = more_args[0]
                     key = cmds[0] + '.' + id_str
