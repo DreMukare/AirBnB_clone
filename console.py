@@ -181,5 +181,54 @@ class HBNBCommand(cmd.Cmd):
         print()
         return True
 
+    def default(self, line):
+        """enables cli to carry out differently formatted commands """
+        all_classes = {'BaseModel': BaseModel, 'User': User, 'State': State,
+               'City': City, 'Amenity': Amenity, 'Place': Place,    
+               'Review': Review}                                    
+        cmds = line.split('.')
+        objs = storage.all()
+        obj_list = []
+        count = 0 
+        if cmds[0] in all_classes.keys():
+            if cmds[1] == 'all()':
+            # print all instances of class
+                for k, v in objs.items():
+                    if type(v) is eval(cmds[0]):
+                        v = str(objs[k])
+                        obj_list.append(v)
+                print(obj_list)
+            elif cmds[1] == 'count()':
+            # print number of class instances
+               for k, v in objs.items():
+                   if type(v) is eval(cmds[0]):
+                       count += 1
+               print(count)
+            id_sect = cmds[1].split('(')
+            act_id = id_sect[1].replace(')', '')
+            if act_id:
+                if len(act_id) == 36:
+                    key = cmds[0] + '.' + act_id
+                    if id_sect[0] == 'show':
+                        print(obj[key])
+                    elif id_sect[0] == 'destroy':
+                        del obj[key]
+                else:
+                    more_args = act_id.split(', ')
+                    id_str = more_args[0]
+                    key = cmds[0] + '.' + id_str
+                    dict_o = obj[key] 
+                    if len(more_args) == 2 and more_args[1][0] == '{':
+                        for k, v in more_args[1]:
+                            dict_o[k] = v
+                    else:
+                        if len(more_args) == 2:
+                            print('** value missing **')
+                        elif len(more_args) == 3:
+                            setattr(dict_o, more_args[1], more_args[2])
+            else:
+                print('** instance id missing **')
+
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
