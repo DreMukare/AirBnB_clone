@@ -113,20 +113,26 @@ class HBNBCommand(cmd.Cmd):
         or (hbnb) all
         """
         obj_list = []
-        all_list = []
-        all_instances = storage.all()
-        if line == "":
-            for k, obj in all_instances.items():
-                all_list.append(str(obj))
-            print(all_list)
-        elif line in HBNBCommand.all_classes.keys():
-            for k, v in all_instances.items():
-                if line == v.__class__.__name__:
-                    ke_y = line + "." + str(v.id)
-                    obj_list.append(all_instances[ke_y])
-            print(obj_list)
-        else:
+#        storage.reload()
+        objs = storage.all()
+        try:
+            if len(line) != 0:
+                eval(line)
+            else:
+                pass
+        except NameError:
             print("** class doesn't exist **")
+            return
+        line.strip()
+        for key, val in objs.items():
+            if len(line) != 0:
+                if type(val) is eval(line):
+                    val = str(objs[key])
+                    obj_list.append(val)
+            else:
+                val = str(objs[key])
+                obj_list.append(val)
+        print(obj_list)
 
     def do_update(self, line):
         """
