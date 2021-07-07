@@ -113,7 +113,6 @@ class HBNBCommand(cmd.Cmd):
         or (hbnb) all
         """
         obj_list = []
-#        storage.reload()
         objs = storage.all()
         try:
             if len(line) != 0:
@@ -217,7 +216,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("*** Unknown syntax: {}".format(line))
                 return
- 
+
     def instance_count(self, line):
         """
         Returns a list containing string representation of instances
