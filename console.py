@@ -222,7 +222,7 @@ class HBNBCommand(cmd.Cmd):
      """
         Returns a list containing string representation of instances
      """
-        count = 0
+    count = 0
         obj_list = []
         all_list = []
         all_instances = storage.all()
