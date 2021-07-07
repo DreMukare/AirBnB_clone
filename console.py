@@ -217,12 +217,12 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("*** Unknown syntax: {}".format(line))
                 return
-
+    
     def instance_count(self, line):
-     """
+        """
         Returns a list containing string representation of instances
-     """
-    count = 0
+        """
+        count = 0
         obj_list = []
         all_list = []
         all_instances = storage.all()
