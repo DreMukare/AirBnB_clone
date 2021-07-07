@@ -217,6 +217,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("*** Unknown syntax: {}".format(line))
                 return
+    
     def instance_count(self, line):
         """
         Returns a list containing string representation of instances
