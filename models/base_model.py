@@ -38,7 +38,7 @@ class BaseModel:
         """
             prints a string representation of BaseClass instance
         """
-        return '[{}] ({}) <{}>'\
+        return '[{}] ({}) {}'\
             .format(self.__class__.__name__, self.id, self.__dict__)
 
     def save(self):
