@@ -6,7 +6,7 @@ header {
 }
 
 header::before {
-	content: url(../images/logo.png);
+	content: url(../images/logo.png) / 'HBnB logo';
 	display: flex;
 	justify-content: flex-start;
 	margin-left: 20px;
