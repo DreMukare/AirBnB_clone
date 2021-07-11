@@ -8,6 +8,10 @@
 	align-items: center;
 }
 
+.container section.filters:hover {
+	margin-bottom: 250px;
+}
+
 .container .filters button {
 	font-size: 18px;
 	background-color: #ff5a5f;
